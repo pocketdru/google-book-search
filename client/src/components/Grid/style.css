@@ -1,0 +1,5 @@
+.container:first-child .row {
+    border: black 2px solid;
+    padding: 20px;
+    background-color: rgba(245, 245, 220, 0.8);
+}
