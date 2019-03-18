@@ -4,6 +4,7 @@ import Nav from "./components/Nav";
 import Input from "./components/Input";
 import Button from "./components/Button";
 import API from "./components/utils/API";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { BookList, BookListItem } from "./components/BookList";
 import { Container, Row, Col } from "./components/Grid";
 
@@ -16,10 +17,8 @@ class App extends Component {
   handleInputChange = event => {
     // Destructure the name and value properties off of event.target
     // Update the appropriate state
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
+    const { value } = event.target;
+    this.setState({ bookSearch: value });
   };
 
   handleFormSubmit = event => {
@@ -27,16 +26,23 @@ class App extends Component {
     event.preventDefault();
     API.getBooks(this.state.bookSearch)
       .then(res => {
-        console.log(res.data);
+        console.log(res.data.items);
         this.setState({ books: res.data });
+        console.log(res.data.items[0].volumeInfo.description);
+        console.log(res.data.items[0].volumeInfo.imageLinks.smallThumbnail)
+        this.setState( { books: res.data.items });
       })
       .catch(err => console.log(err));
   };
 
   render() {
     return (
+      <Router>
       <div>
         <Nav />
+        {/* <Switch>
+          <Route exact path="/" component={Jumbotron} />
+        </Switch> */}
         <Jumbotron />
         <Container>
           <Row>
@@ -69,22 +75,26 @@ class App extends Component {
           <Row>
             <Col size="xs-12">
                <h1 className="text-center">Nothing to display</h1>
-               {/* <BookList>
-                   return (
-                     <BookListItem
-                     key={book.title}
-                     title={book.title}
-                     href={book.href}
-                    ingerients={book.ingerients}
-                    thumbnail={book.thumbnail}
-                     />
-                   )
-               </BookList> */}
+               <BookList>
+                   {this.state.books && this.state.books.length && this.state.books.map((book, index) => {
+                     return (
+                       <BookListItem
+                       key={book.id}
+                       title={book.volumeInfo.title}
+                       authors={this.state.books[index].volumeInfo.authors[0]}
+                       about={this.state.books[index].volumeInfo.description}
+                       thumbnail={this.state.books[index].volumeInfo.imageLinks.smallThumbnail}
+                       />
+                     )
+                   })
+                }
+               </BookList>
             
             </Col>
           </Row>
         </Container>
       </div>
+      </Router>
     );
   }
 }
