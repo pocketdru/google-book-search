@@ -5,8 +5,7 @@ function Nav() {
   return (
     <nav className="nav">
      <a className="nav-link active" href="/">Google Books</a>
-     <a className="nav-link" href="/">Search</a>
-     <a className="nav-link" href="#">Saved</a>
+     <a className="nav-link" href="/saved">Saved</a>
     </nav>
   );
 }

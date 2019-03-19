@@ -4,7 +4,11 @@ import API from "../components/utils/API";
 import { Col, Row, Container } from "../components/Grid";
 import { BookList, BookListItem } from "../components/BookList";
 import Input from "../components/Input";
-import Button from "../components//Button"
+import Button from "../components//Button";
+import SaveBtn from "../components/SaveBtn";
+import "./style.css";
+import ViewBtn from "../components/ViewBtn";
+
 
 class Books extends Component {
   state = {
@@ -27,11 +31,21 @@ class Books extends Component {
         console.log(res.data.items);
         this.setState({ books: res.data });
         console.log(res.data.items[0].volumeInfo.description);
-        console.log(res.data.items[0].volumeInfo.imageLinks.smallThumbnail)
+        console.log(res.data.items[0].id)
         this.setState( { books: res.data.items });
       })
       .catch(err => console.log(err));
   }; 
+
+  handleSaveButton = event => {
+    event.preventDefault();
+    API.saveBook({
+      title: this.state.book.title,
+      author: this.state.book.author,
+      about: this.state.book.about,
+      thumbnail: this.state.book.thumbnail
+    })
+  }
   
   render() {
       return (
@@ -71,13 +85,18 @@ class Books extends Component {
                <BookList>
                    {this.state.books && this.state.books.length && this.state.books.map((book, index) => {
                      return (
+                       <div key={book.id} id="f">
                        <BookListItem
-                       key={book.id}
+                       id= {this.state.books[index].id}
                        title={book.volumeInfo.title}
-                       authors={this.state.books[index].volumeInfo.authors[0]}
+                       author={this.state.books[index].volumeInfo.authors[0]}
                        about={this.state.books[index].volumeInfo.description}
                        thumbnail={this.state.books[index].volumeInfo.imageLinks.smallThumbnail}
                        />
+                       <SaveBtn onClick={this.handleFormSubmit}/>
+                       <ViewBtn />
+
+                       </div>
                      )
                    })
                 }
