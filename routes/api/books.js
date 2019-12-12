@@ -4,7 +4,9 @@ const booksController = require("../../controllers/booksController");
 // Matches with "/api/books"
 router.route("/")
   .get(booksController.findAll)
-  .post(booksController.create);
+  .post(booksController.create, function() {
+      console.log("Post working!");
+  });
 
 // Matches with "/api/books/:id"
 router
@@ -14,7 +16,7 @@ router
   .delete(booksController.remove);
 
   router
-    .route("/save")
+    .route("/api/books")
     .get(booksController.findAll)
     .post(booksController.create)
     .delete(booksController.remove);

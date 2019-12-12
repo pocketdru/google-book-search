@@ -7,11 +7,10 @@ import Saved from "./pages/Saved";
  function App() {
     return (
       <Router>
-        <Nav/>
       <div>
         <Switch>
           <Route exact path="/" component={Books} />
-          <Route exact path="/saved" component={Saved} />
+          <Route exact path="/Saved" component={Saved} />
           {/* <Route exact path="/saved" component={Jumbotron} /> */}
         </Switch>
         </div>

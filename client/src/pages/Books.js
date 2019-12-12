@@ -15,7 +15,7 @@ class Books extends Component {
     books: [],
     bookSearch: ""
   };
-
+  
  handleInputChange = event => {
     // Destructure the name and value properties off of event.target
     // Update the appropriate state
@@ -26,30 +26,66 @@ class Books extends Component {
   handleFormSubmit = event => {
     // When the form is submitted, prevent its default behavior, get books update the books state
     event.preventDefault();
-    API.getBooks(this.state.bookSearch)
+    this.myRef = React.createRef();
+    API.search(this.state.bookSearch)
       .then(res => {
         console.log(res.data.items);
         this.setState({ books: res.data });
         console.log(res.data.items[0].volumeInfo.description);
         console.log(res.data.items[0].id)
         this.setState( { books: res.data.items });
+        console.log(this.state.books);
+        console.log(this.state.books.length);
       })
       .catch(err => console.log(err));
   }; 
 
+
+//НАШЛА В ЧЕМ БАГ: ИСПРАВИТЬ ПУТИ В JSON ответе по примеру 
+// line 51 is an example
+
+
+
   handleSaveButton = event => {
+    // console.log(event.target.parent());
     event.preventDefault();
-    API.saveBook({
-      title: this.state.book.title,
-      author: this.state.book.author,
-      about: this.state.book.about,
-      thumbnail: this.state.book.thumbnail
+    console.log(this.state.books);
+    console.log(this.state.books[1].volumeInfo.title);
+    console.log(this.state.books[1].volumeInfo.authors[0]);
+    console.log(this.state.books[1].volumeInfo.description);
+    console.log(this.state.books[0].volumeInfo.imageLinks.smallThumbnail);
+
+    let bookData =  JSON.parse(event.target.getAttribute('value'))
+    console.log(event.target)
+
+    bookData = {
+        title: this.state.books[1].volumeInfo.title,
+      author: this.state.books[1].volumeInfo.authors[0],
+      about: this.state.books[1].volumeInfo.description,
+      thumbnail: this.state.books[1].volumeInfo.imageLinks.smallThumbnail
+    }
+
+    API.saveBook(bookData)
+    // API.saveBook({
+    //   title: this.state.books[1].volumeInfo.title,
+    //   author: this.state.books[1].volumeInfo.authors[0],
+    //   about: this.state.books[1].volumeInfo.description,
+    //   thumbnail: this.state.books[1].volumeInfo.imageLinks.smallThumbnail
+    //   title: "Mary",
+    //   author: "dfds",
+    //   about: "dfds",
+    //   image: "fdfsdf"
+    // })
+    .then(res => {
+        console.log("Book saved!");
     })
+    .catch(err => console.log(err))
+    
   }
   
   render() {
       return (
-        <div>
+          <div>
           <Jumbotron/>
           <Container>
           <Row>
@@ -59,7 +95,7 @@ class Books extends Component {
                   <Row className="border">
                     <Col size="xs-9 sm-10">
                       <Input
-                        name="recipeSearch"
+                        name="bookSearch"
                         value={this.state.bookSearch}
                         onChange={this.handleInputChange}
                         placeholder="Search For a Book"
@@ -85,26 +121,41 @@ class Books extends Component {
                <BookList>
                    {this.state.books && this.state.books.length && this.state.books.map((book, index) => {
                      return (
-                       <div key={book.id} id="f">
+                    <div key={book.id} id="f">
                        <BookListItem
+                    //    key={this.state.books[index].id}
                        id= {this.state.books[index].id}
                        title={book.volumeInfo.title}
                        author={this.state.books[index].volumeInfo.authors[0]}
                        about={this.state.books[index].volumeInfo.description}
-                       thumbnail={this.state.books[index].volumeInfo.imageLinks.smallThumbnail}
-                       />
-                       <SaveBtn onClick={this.handleFormSubmit}/>
-                       <ViewBtn />
-
-                       </div>
+                       thumbnail={this.state.books[index].volumeInfo.imageLinks.smallThumbnail}     
+                        />
+                        <SaveBtn onClick={this.handleSaveButton}/>
+                    </div>
                      )
                    })
                 }
                </BookList>
-            
+            {/* <BookList> */}
+                   {/* {this.state.books.map(book => {
+                     return (
+                       <BookListItem
+                       key={book.id}
+                       id= {book.id}
+                       title={book.title}
+                       author={book.author}
+                       about={book.description}
+                       thumbnail={book.volumeInfo.imageLinks.smallThumbnail}
+                       onClick={this.handleSaveButton}
+                        />
+                    
+                     )
+                   })
+                } */}
+               {/* </BookList> */}
             </Col>
           </Row>
-        </Container> 
+        </Container>
         </div>
       )
   }

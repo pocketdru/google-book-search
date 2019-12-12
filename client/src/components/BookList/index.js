@@ -11,18 +11,18 @@ export function BookList({ children }) {
 
 // BookListItem renders a bootstrap list item containing data from the recipe api call
 export function BookListItem({
-  id,
-  title,
-  author,  
-  about,
-  thumbnail
+    id,
+    title,
+    author,  
+    about,
+    thumbnail
 
 }) {
   return (
     <li className="list-group-item">
       <Container>
         <Row>
-          <Col size="xs-8 sm-9" id={id}>
+        <Col size="xs-8 sm-9" id={id}>
               <h3 id={id}>{title}</h3>
             <h5 id={id}>
               <span className="p">Authors:</span><span id="authors"> {author} </span>
@@ -39,6 +39,7 @@ export function BookListItem({
           </div>
           </div>
           </Col>
+          {/* <SaveBtn/> */}
         </Row>
       </Container>
     </li>
