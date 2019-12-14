@@ -7,7 +7,7 @@ import API from "../components/utils/API";
 
 class Saved extends Component {
     state = {
-        books: ['1', '2'],
+        books: [],
         bookSearch: ""
       };
 
@@ -15,7 +15,7 @@ class Saved extends Component {
         this.loadBooks();
         console.log(this.state.books);
 
-      }
+      };
 
       loadBooks = () => {
         API.getBooks()
@@ -32,14 +32,14 @@ class Saved extends Component {
 
       
     
-      handleInputChange = event => {
-        // Destructure the name and value properties off of event.target
-        // Update the appropriate state
-        const { name, value } = event.target;
-        this.setState({
-          [name]: value
-        });
-      };
+      // handleInputChange = event => {
+      //   // Destructure the name and value properties off of event.target
+      //   // Update the appropriate state
+      //   const { name, value } = event.target;
+      //   this.setState({
+      //     [name]: value
+      //   });
+      // };
     
 
 render() {
@@ -47,9 +47,9 @@ render() {
         <div className = "container">
         <h1 className="centered">Your Saved Books</h1>
           <section>
-          {/* {this.state.books.map(book => {
+          {this.state.books.map(book => {
                     return (
-                      <Saved
+                      <div
                       key={book.title}
                       title={book.title}
                       author={book.author}
@@ -57,9 +57,9 @@ render() {
                       thumbnail={book.thumbnail}
                       value={book}
                       id={book._id}
-                      />
+                      ></div>
                     );
-                  })} */}
+                  })}
           </section>
         </div>
     )
