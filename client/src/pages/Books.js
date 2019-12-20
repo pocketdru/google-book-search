@@ -12,6 +12,7 @@ import ViewBtn from "../components/ViewBtn";
 
 class Books extends Component {
   state = {
+    clear: [],
     books: [],
     bookSearch: ""
   };
@@ -19,23 +20,34 @@ class Books extends Component {
  handleInputChange = event => {
     // Destructure the name and value properties off of event.target
     // Update the appropriate state
-    const { value } = event.target;
-    this.setState({ bookSearch: value });
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value
+    });
   };
 
   handleFormSubmit = event => {
     // When the form is submitted, prevent its default behavior, get books update the books state
     event.preventDefault();
-    this.myRef = React.createRef();
+    this.setState({ books: this.state.clear})
+
     API.search(this.state.bookSearch)
       .then(res => {
         console.log(res.data.items);
-        this.setState({ books: res.data });
-        console.log(res.data.items[0].volumeInfo.description);
-        console.log(res.data.items[0].id)
-        this.setState( { books: res.data.items });
-        console.log(this.state.books);
-        console.log(this.state.books.length);
+        console.log(res.data.items[0].volumeInfo);
+        const response;
+
+        
+        //НАЧАТЬ ФТЕСИНГ ОТСЮЛА ПО ПРИМЕРУ 
+
+
+
+        // this.setState({ books: res.data });
+        // console.log(res.data.items[0].volumeInfo.description);
+        // console.log(res.data.items[0].id)
+        // this.setState( { books: res.data.items });
+        // console.log(this.state.books);
+        // console.log(this.state.books.length);
       })
       .catch(err => console.log(err));
   }; 
@@ -49,21 +61,22 @@ class Books extends Component {
   handleSaveButton = event => {
     // console.log(event.target.parent());
     event.preventDefault();
-    console.log(this.state.books);
-    console.log(this.state.books[1].volumeInfo.title);
-    console.log(this.state.books[1].volumeInfo.authors[0]);
-    console.log(this.state.books[1].volumeInfo.description);
-    console.log(this.state.books[0].volumeInfo.imageLinks.smallThumbnail);
+    // console.log(this.state.books);
+    // console.log(this.state.books[1].volumeInfo.title);
+    // console.log(this.state.books[1].volumeInfo.authors[0]);
+    // console.log(this.state.books[1].volumeInfo.description);
+    // console.log(this.state.books[0].volumeInfo.imageLinks.smallThumbnail);
 
-    let bookData =  JSON.parse(event.target.getAttribute('value'))
-    console.log(event.target)
-
-    bookData = {
-        title: this.state.books[1].volumeInfo.title,
-      author: this.state.books[1].volumeInfo.authors[0],
-      about: this.state.books[1].volumeInfo.description,
-      thumbnail: this.state.books[1].volumeInfo.imageLinks.smallThumbnail
-    }
+    // let bookData =  JSON.parse(event.target.getAttribute('value'))
+    console.log(JSON.parse(event.target.getAttribute("value")));
+    var bookData = JSON.parse(event.target.getAttribute("value"));
+// console.log(bookData);
+    // bookData = {
+    //     title: this.state.books[1].volumeInfo.title,
+    //   author: this.state.books[1].volumeInfo.authors[0],
+    //   about: this.state.books[1].volumeInfo.description,
+    //   thumbnail: this.state.books[1].volumeInfo.imageLinks.smallThumbnail
+    // }
 
     API.saveBook(bookData)
     // API.saveBook({
@@ -76,10 +89,10 @@ class Books extends Component {
     //   about: "dfds",
     //   image: "fdfsdf"
     // })
-    .then(res => {
-        console.log("Book saved!");
-    })
-    .catch(err => console.log(err))
+    // .then(res => {
+    //     console.log("Book saved!");
+    // })
+    // .catch(err => console.log(err))
     
   }
   
@@ -119,40 +132,24 @@ class Books extends Component {
             <Col size="xs-12">
                <h1 className="text-center">Nothing to display</h1>
                <BookList>
-                   {this.state.books && this.state.books.length && this.state.books.map((book, index) => {
+                   {this.state.books.map(book => {
                      return (
                     <div key={book.id} id="f">
                        <BookListItem
                     //    key={this.state.books[index].id}
-                       id= {this.state.books[index].id}
+                       id= {this.state.book.id}
                        title={book.volumeInfo.title}
-                       author={this.state.books[index].volumeInfo.authors[0]}
-                       about={this.state.books[index].volumeInfo.description}
-                       thumbnail={this.state.books[index].volumeInfo.imageLinks.smallThumbnail}     
+                       author={this.state.book.volumeInfo.authors[0]}
+                       about={this.state.book.volumeInfo.description}
+                       thumbnail={this.state.book.volumeInfo.imageLinks.smallThumbnail}
+                       value={book}     
                         />
-                        <SaveBtn onClick={this.handleSaveButton}/>
+                        <SaveBtn onClick={this.handleSaveButton} value={JSON.stringify(book)}/>
                     </div>
                      )
                    })
                 }
                </BookList>
-            {/* <BookList> */}
-                   {/* {this.state.books.map(book => {
-                     return (
-                       <BookListItem
-                       key={book.id}
-                       id= {book.id}
-                       title={book.title}
-                       author={book.author}
-                       about={book.description}
-                       thumbnail={book.volumeInfo.imageLinks.smallThumbnail}
-                       onClick={this.handleSaveButton}
-                        />
-                    
-                     )
-                   })
-                } */}
-               {/* </BookList> */}
             </Col>
           </Row>
         </Container>

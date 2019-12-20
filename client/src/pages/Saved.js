@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import Jumbotron from "../components/Jumbotron";
-import Button from "../components//Button";
 import { Col, Row, Container } from "../components/Grid";
-import { BookList, BookListItem } from "../components/BookList";
 import API from "../components/utils/API";
 
 class Saved extends Component {
@@ -46,10 +43,11 @@ render() {
     return(
         <div className = "container">
         <h1 className="centered">Your Saved Books</h1>
-          <section>
-          {this.state.books.map(book => {
+          <div>
+            <ul className="list-group">
+              {this.state.books.map(book => {
                     return (
-                      <div
+                      <li className="list-group-item"
                       key={book.title}
                       title={book.title}
                       author={book.author}
@@ -57,10 +55,16 @@ render() {
                       thumbnail={book.thumbnail}
                       value={book}
                       id={book._id}
-                      ></div>
+                      >
+                        <h3 id={book._id}>{book.title}</h3>
+                        <h5 id={book._id}>
+                          <span className="p">Authors:</span><span id="authors"> {book.author} </span>
+                        </h5>
+                      </li>
                     );
                   })}
-          </section>
+            </ul>      
+          </div>
         </div>
     )
 }

@@ -8,6 +8,7 @@ import Saved from "./pages/Saved";
     return (
       <Router>
       <div>
+        <Nav/>
         <Switch>
           <Route exact path="/" component={Books} />
           <Route exact path="/Saved" component={Saved} />

@@ -32,7 +32,7 @@ export function BookListItem({
             </p>
             
           </Col>
-          <Col size="xs-4 sm-3">
+          <Col size="xs-4 sm-2">
           <div role="image" id={id}>
           <img src={thumbnail} alt={title}></img>
           <div className="btn-group" role="group" aria-label="Basic example">
