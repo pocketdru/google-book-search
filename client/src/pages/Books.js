@@ -34,67 +34,36 @@ class Books extends Component {
     API.search(this.state.bookSearch)
       .then(res => {
         console.log(res.data.items);
-        console.log(res.data.items[0].volumeInfo);
-        const response;
-
-        
-        //НАЧАТЬ ФТЕСИНГ ОТСЮЛА ПО ПРИМЕРУ 
-
-
-
-        // this.setState({ books: res.data });
-        // console.log(res.data.items[0].volumeInfo.description);
-        // console.log(res.data.items[0].id)
-        // this.setState( { books: res.data.items });
-        // console.log(this.state.books);
-        // console.log(this.state.books.length);
+        const results = res.data.items;
+        const collections = [];
+        results.map(book => {
+          const info = book.volumeInfo;
+          const volume = {
+            title: info.title,
+            author: info.authors,
+            description: info.description ? info.description : "Description is not provided",
+            image: info.imageLinks.smallThumbnail ? info.imageLinks.smallThumbnail : "http://books.google.com/books/content?id=VO8nDwAAQ…=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+          };
+          collections.push(volume)
+        })
+        console.log(collections)
+        this.setState({ books: collections})
       })
       .catch(err => console.log(err));
   }; 
 
-
-//НАШЛА В ЧЕМ БАГ: ИСПРАВИТЬ ПУТИ В JSON ответе по примеру 
-// line 51 is an example
-
-
-
   handleSaveButton = event => {
-    // console.log(event.target.parent());
     event.preventDefault();
-    // console.log(this.state.books);
-    // console.log(this.state.books[1].volumeInfo.title);
-    // console.log(this.state.books[1].volumeInfo.authors[0]);
-    // console.log(this.state.books[1].volumeInfo.description);
-    // console.log(this.state.books[0].volumeInfo.imageLinks.smallThumbnail);
-
-    // let bookData =  JSON.parse(event.target.getAttribute('value'))
-    console.log(JSON.parse(event.target.getAttribute("value")));
     var bookData = JSON.parse(event.target.getAttribute("value"));
-// console.log(bookData);
-    // bookData = {
-    //     title: this.state.books[1].volumeInfo.title,
-    //   author: this.state.books[1].volumeInfo.authors[0],
-    //   about: this.state.books[1].volumeInfo.description,
-    //   thumbnail: this.state.books[1].volumeInfo.imageLinks.smallThumbnail
-    // }
-
+    console.log(bookData);
+    console.log(this.state.books.indexOf(bookData))
     API.saveBook(bookData)
-    // API.saveBook({
-    //   title: this.state.books[1].volumeInfo.title,
-    //   author: this.state.books[1].volumeInfo.authors[0],
-    //   about: this.state.books[1].volumeInfo.description,
-    //   thumbnail: this.state.books[1].volumeInfo.imageLinks.smallThumbnail
-    //   title: "Mary",
-    //   author: "dfds",
-    //   about: "dfds",
-    //   image: "fdfsdf"
-    // })
-    // .then(res => {
-    //     console.log("Book saved!");
-    // })
-    // .catch(err => console.log(err))
+      .then(res => {
+        console.log(' Book saved!!')
+      })
+      .catch(err => console.log(err))
     
-  }
+  };
   
   render() {
       return (
@@ -134,14 +103,14 @@ class Books extends Component {
                <BookList>
                    {this.state.books.map(book => {
                      return (
-                    <div key={book.id} id="f">
+                    <div key={book.title} id="f">
                        <BookListItem
                     //    key={this.state.books[index].id}
-                       id= {this.state.book.id}
-                       title={book.volumeInfo.title}
-                       author={this.state.book.volumeInfo.authors[0]}
-                       about={this.state.book.volumeInfo.description}
-                       thumbnail={this.state.book.volumeInfo.imageLinks.smallThumbnail}
+                       id= {book.id}
+                       title={book.title}
+                       author={book.author}
+                       about={book.description}
+                       thumbnail={book.image}
                        value={book}     
                         />
                         <SaveBtn onClick={this.handleSaveButton} value={JSON.stringify(book)}/>
