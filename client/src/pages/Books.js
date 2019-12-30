@@ -50,7 +50,7 @@ class Books extends Component {
         this.setState({ books: collections})
       })
       .catch(err => console.log(err));
-  }; 
+  };
 
   handleSaveButton = event => {
     event.preventDefault();
@@ -105,7 +105,6 @@ class Books extends Component {
                      return (
                     <div key={book.title} id="f">
                        <BookListItem
-                    //    key={this.state.books[index].id}
                        id= {book.id}
                        title={book.title}
                        author={book.author}
