@@ -25,7 +25,7 @@ export function BookListItem({
         <Col size="xs-8 sm-9" id={id}>
               <h3 id={id}>{title}</h3>
             <h5 id={id}>
-              <span className="p">Authors:</span><span id="authors"> {author} </span>
+              <span className="p">Authors: {author.join(', ')}.</span>
             </h5>
             <p id={id}>
               <span className="p">About:</span><span id="about"> {about} </span>

@@ -98,6 +98,7 @@ class Books extends Component {
             </Col>
           </Row>
           <Row>
+
             <Col size="xs-12">
                <h1 className="text-center">Nothing to display</h1>
                <BookList>
