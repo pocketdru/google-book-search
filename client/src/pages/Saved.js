@@ -29,18 +29,6 @@ class Saved extends Component {
           console.log(this.state.books);
       };
 
-      
-    
-      // handleInputChange = event => {
-      //   // Destructure the name and value properties off of event.target
-      //   // Update the appropriate state
-      //   const { name, value } = event.target;
-      //   this.setState({
-      //     [name]: value
-      //   });
-      // };
-    
-
 render() {
     return(
         <div className = "container">

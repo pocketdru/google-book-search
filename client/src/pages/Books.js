@@ -43,6 +43,7 @@ class Books extends Component {
             author: info.authors,
             description: info.description ? info.description : "Description is not provided",
             image: info.imageLinks.smallThumbnail ? info.imageLinks.smallThumbnail : "http://books.google.com/books/content?id=VO8nDwAAQ…=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+            link: info.infoLink
           };
           collections.push(volume)
         })
@@ -109,10 +110,12 @@ class Books extends Component {
                        id= {book.id}
                        title={book.title}
                        author={book.author}
+                       href={book.link}
                        about={book.description}
                        thumbnail={book.image}
                        value={book}     
                         />
+                        <a className="btn btn-primary" href={book.link} id="save">View</a>
                         <SaveBtn onClick={this.handleSaveButton} value={JSON.stringify(book)}/>
                     </div>
                      )
