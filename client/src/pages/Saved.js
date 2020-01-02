@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Col, Row, Container } from "../components/Grid";
 import API from "../components/utils/API";
+import { BookList, BookListItem } from "../components/BookList";
+
 
 class Saved extends Component {
     state = {
@@ -43,28 +45,23 @@ render() {
     return(
         <div className = "container">
         <h1 className="centered">Your Saved Books</h1>
-          <div>
-            <ul className="list-group">
-              {this.state.books.map(book => {
-                    return (
-                      <li className="list-group-item"
-                      key={book.title}
-                      title={book.title}
-                      author={book.author}
-                      href={book.about}
-                      thumbnail={book.thumbnail}
-                      value={book}
-                      id={book._id}
-                      >
-                        <h3 id={book._id}>{book.title}</h3>
-                        <h5 id={book._id}>
-                          <span className="p">Authors:</span><span id="authors"> {book.author} </span>
-                        </h5>
-                      </li>
-                    );
-                  })}
-            </ul>      
-          </div>
+        <BookList>
+                   {this.state.books.map(book => {
+                     return (
+                    <div key={book._id} id="f">
+                       <BookListItem
+                       id= {book.id}
+                       title={book.title}
+                       author={book.author}
+                       about={book.description}
+                       thumbnail={book.image}
+                       value={book}     
+                        />
+                    </div>
+                     )
+                   })
+                }
+               </BookList>
         </div>
     )
 }
