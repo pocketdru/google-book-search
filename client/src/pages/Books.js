@@ -127,7 +127,7 @@ class Books extends Component {
                </BookList> 
                   ) 
                   : 
-                  (<h1 className="text-center">Nothing to display</h1>)
+                  (<h1 className="text-center display">Nothing to display</h1>)
               )}
             </Col>
           </Row>

@@ -46,7 +46,7 @@ render() {
         <Container>
           <Row>
         <Col size="xs-12">
-        <h1 className="centered">Your Saved Books</h1>
+        <h1 className="centered display">Your Saved Books</h1>
         <BookList>
                    {this.state.books.map(book => {
                      return (

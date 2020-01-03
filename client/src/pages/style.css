@@ -14,3 +14,7 @@
     -moz-box-shadow: 6px 7px 5px 0px rgba(82,80,82,1);
     box-shadow: 6px 7px 5px 0px rgba(82,80,82,1);
 }
+
+.display {
+    background-color: rgba(245, 245, 220, 0.7);
+}
