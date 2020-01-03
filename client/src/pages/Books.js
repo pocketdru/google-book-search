@@ -65,33 +65,35 @@ class Books extends Component {
       .catch(err => console.log(err))
     
   };
+
+
   
   render() {
-      return (
-          <div>
-          <Jumbotron/>
+    return (
+      <div>
+        <Jumbotron/>
           <Container>
-          <Row>
-            <Col size="md-12">
-              <form>
-                <Container>
-                  <Row className="border">
-                    <Col size="xs-9 sm-10">
-                      <Input
-                        name="bookSearch"
-                        value={this.state.bookSearch}
-                        onChange={this.handleInputChange}
-                        placeholder="Search For a Book"
-                      />
-                    </Col>
-                    <Col size="xs-9 sm-10">
-                      <Button
-                        onClick={this.handleFormSubmit}
-                        type="success"
-                        className="input-lg"
-                      >
-                        Search
-                      </Button>
+            <Row>
+              <Col size="md-12">
+                <form>
+                  <Container>
+                    <Row className="border">
+                      <Col size="xs-9 sm-10">
+                        <Input
+                          name="bookSearch"
+                          value={this.state.bookSearch}
+                          onChange={this.handleInputChange}
+                          placeholder="Search For a Book"
+                        />
+                      </Col>
+                      <Col size="xs-9 sm-10">
+                        <Button
+                          onClick={this.handleFormSubmit}
+                          type="success"
+                          className="input-lg"
+                        >
+                          Search
+                        </Button>
                     </Col>
                   </Row>
                 </Container>
@@ -101,7 +103,8 @@ class Books extends Component {
           <Row>
 
             <Col size="xs-12">
-               <h1 className="text-center">Nothing to display</h1>
+              {((this.state.books[0])?                 
+                  (
                <BookList>
                    {this.state.books.map(book => {
                      return (
@@ -121,7 +124,11 @@ class Books extends Component {
                      )
                    })
                 }
-               </BookList>
+               </BookList> 
+                  ) 
+                  : 
+                  (<h1 className="text-center">Nothing to display</h1>)
+              )}
             </Col>
           </Row>
         </Container>
