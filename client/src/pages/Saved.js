@@ -45,9 +45,12 @@ render() {
       <div>
         <Container>
           <Row>
-        <Col size="xs-12">
-        <h1 className="centered display">Your Saved Books</h1>
-        <BookList>
+            <Col size="xs-12">
+            <h1 className="centered display">Your Saved Books</h1>
+
+            {((this.state.books[0])? 
+            (
+              <BookList>
                    {this.state.books.map(book => {
                      return (
                     <div key={book._id} className="f">
@@ -67,6 +70,8 @@ render() {
                    })
                 }
                </BookList>
+                ) : (<h3 className="display">You didn't save any book.</h3>)
+            )}
                </Col>
                </Row>
                </Container>

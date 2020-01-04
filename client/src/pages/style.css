@@ -1,3 +1,7 @@
+#root {
+    min-height: 500px;
+}
+
 .f {
     display: flex;
     justify-content: space-between;

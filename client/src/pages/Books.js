@@ -108,7 +108,7 @@ class Books extends Component {
                <BookList>
                    {this.state.books.map(book => {
                      return (
-                    <div key={book.title} className="f">
+                    <div key={book.description} className="f">
                        <BookListItem
                        id= {book.id}
                        title={book.title}
