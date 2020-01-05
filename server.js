@@ -18,7 +18,7 @@ app.use(routes);
 // Send every other request to the React app
 // Define any API routes before this runs
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/books_db");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://user:LVqBm7at!hJ9!yQ@ds119640.mlab.com:19640/heroku_232b88v3");
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/build/index.html"));
