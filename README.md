@@ -1,6 +1,6 @@
 # react-google-book-search
 
-[Deployed version](https://developers.google.com/books)
+[Deployed version](https://react-google-book-search-ma.herokuapp.com/)
 
 This is a React-based Google Books Search app.
 
