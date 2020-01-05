@@ -6,7 +6,7 @@ import "./style.css";
 function Input(props) {
   return (
     <div>
-      <h3>Books Search</h3>
+      <h3 className="display">Books Search</h3>
     <div className="input-group input-group-lg">
       <input className="form-control" type="text" {...props} />
     </div>
